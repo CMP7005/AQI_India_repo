@@ -7,6 +7,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Main page
 st.title("🌫️ Air Quality Analytics App")
 
 st.markdown("""
@@ -20,77 +21,69 @@ This application follows a simple workflow:
 4. **Model Building**
 """)
 
-st.info("Use the sidebar to navigate between pages.")
+st.info("Use the sidebar to move through the pages in order.")
 
-st.markdown("---")
+# -------------------------------
+# Sidebar content
+# -------------------------------
+st.sidebar.title("App Guide")
 
-st.subheader("Workflow Overview")
+st.sidebar.markdown("### Workflow Overview")
 
-section = st.radio(
-    "Select a stage to see what it does:",
+section = st.sidebar.radio(
+    "Choose a stage:",
     (
         "Upload Dataset",
-        "Data Description and Preprocessing",
+        "Data Description",
         "EDA",
         "Model Building"
     )
 )
 
 if section == "Upload Dataset":
-    st.write("""
-    On this page, users upload their CSV dataset.
-
-    The uploaded file is saved so it can be reused in the next pages.
+    st.sidebar.write("""
+    Upload your CSV dataset here first.
+    This file will then be used in the next pages.
     """)
 
-elif section == "Data Description and Preprocessing":
-    st.write("""
-    On this page, users:
-    - preview the dataset
-    - check the shape of the data
-    - view column names
-    - inspect missing values
-    - create a basic preprocessed dataset
+elif section == "Data Description":
+    st.sidebar.write("""
+    View the dataset preview, shape, column names,
+    missing values, and preprocessed data.
     """)
 
 elif section == "EDA":
-    st.write("""
-    On this page, users:
-    - view the processed dataset
-    - create bar charts
-    - create line charts
-    - create scatter plots
-    - inspect the correlation matrix
+    st.sidebar.write("""
+    Explore charts and relationships in the
+    cleaned dataset.
     """)
 
 elif section == "Model Building":
-    st.write("""
-    On this page, users:
-    - select a target variable
-    - choose feature variables
-    - split the dataset into training and testing sets
-    - train a Linear Regression model
-    - evaluate model performance using R² score
+    st.sidebar.write("""
+    Select features and target variables,
+    then train and evaluate a model.
+    """)
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("### Quick Help")
+
+if st.sidebar.button("How to use this app"):
+    st.sidebar.success("""
+    Start with Upload Dataset, then continue to
+    Data Description, EDA, and Model Building.
+    """)
+
+if st.sidebar.button("What data should I upload?"):
+    st.sidebar.success("""
+    Upload a CSV file with at least a few
+    numeric columns for charts and modelling.
+    """)
+
+if st.sidebar.button("Why can't I see results yet?"):
+    st.sidebar.warning("""
+    Make sure you uploaded the dataset first
+    and completed the previous page.
     """)
 
 st.markdown("---")
-st.subheader("Quick Help")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    if st.button("How to use this app"):
-        st.success("""
-        Start from **Upload Dataset**, then move to **Data Description**,
-        then **EDA**, and finally **Model Building**.
-        """)
-
-with col2:
-    if st.button("What kind of data should I upload?"):
-        st.success("""
-        Upload a CSV dataset with at least a few numeric columns.
-        Numeric columns are needed for charts and model building.
-        """)
-
-st.markdown("---")
-st.caption("Tip: Follow the pages in order from the sidebar.")
+st.caption("Tip: Follow the pages in order using the sidebar.")
